@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../font_style.dart';
+import 'package:faker/faker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key }) : super(key: key);
@@ -9,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  var faker = new Faker();
   
   @override 
   Widget build(BuildContext context) {
@@ -30,42 +33,11 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blue[500],
           shadowColor: Colors.blue[900],
         ),
-        body: ListView(
-          children: [
-            ListTile(
-              title: Text('Arham Saputra'),
-              subtitle: Text(
-                'this is subtitle text lorem Saat Anda menghapus cadangan, Cadangan iCloud untuk iPhone, iPad, atau iPod touch juga dimatikan. Anda dapat menyalakan kembali Cadangan iCloud di pengaturan iCloud pada perangkat.',
-                overflow: TextOverflow.ellipsis,
-              ),
-              leading: CircleAvatar(
-                child: Image(image: AssetImage('assets/images/fak.png')),
-              ),
-              trailing: Text("10:00 PM"),
-              // tileColor: Colors.amber,
-            ),
-            Divider(
-              height: 10,
-            ),
-            ListTile(
-              title: Text('Arham Saputra'),
-              subtitle: Text('this is subtitle text'),
-              leading: CircleAvatar(),
-              trailing: Text("10:00 PM"),
-            ),
-            ListTile(
-              title: Text('Arham Saputra'),
-              subtitle: Text('this is subtitle text'),
-              leading: CircleAvatar(),
-              trailing: Text("10:00 PM"),
-            ),
-            ListTile(
-              title: Text('Arham Saputra'),
-              subtitle: Text('this is subtitle text'),
-              leading: CircleAvatar(),
-              trailing: Text("10:00 PM"),
-            ),
-          ],
+        body: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return ChatItem(faker.person.name());
+          },
         ),
         drawer: _buildDrawer(),
       );
@@ -97,6 +69,30 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ChatItem extends StatelessWidget {
+  final String title;
+  final Widget imageUrl = Image(image: AssetImage('assets/images/fak.png'));
+  final String subTitle = 'this is subtitle text lorem Saat Anda menghapus cadangan, Cadangan iCloud untuk iPhone, iPad, atau iPod touch juga dimatikan. Anda dapat menyalakan kembali Cadangan iCloud di pengaturan iCloud pada perangkat.';
+
+  ChatItem(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+              title: Text(title),
+              subtitle: Text(
+                subTitle,
+                overflow: TextOverflow.ellipsis,
+              ),
+              leading: CircleAvatar(
+                child: imageUrl,
+              ),
+              trailing: Text("10:00 PM"),
+              // tileColor: Colors.amber,
     );
   }
 }
